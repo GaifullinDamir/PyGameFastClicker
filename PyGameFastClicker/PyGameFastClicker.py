@@ -74,11 +74,13 @@ from random import randint
 
 play = True
 while play:
-    '''Отрисовка карточек и отображение кликов'''
+  '''Отрисовка карточек и отображение кликов'''
   if wait == 0:
+      #переносим надпись:
       wait = 20 #столько тиков надпись будет на одном месте
       click = randint(1, num_cards)
       for i in range(num_cards):
+          cards[i].color((255,255,0))
           cards[i].color(YELLOW)
           if (i + 1) == click:
               cards[i].draw(10, 40)
@@ -86,7 +88,6 @@ while play:
               cards[i].fill()
   else:
       wait -= 1
-
   '''Обработка кликов по карточкам'''
   for event in pygame.event.get():
       if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
