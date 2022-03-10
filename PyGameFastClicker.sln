@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyGameFastClicker", "PyGameFastClicker\PyGameFastClicker.pyproj", "{B79445C9-F043-4666-824E-63F879E4DADF}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyGame_Clicker", "PyGameFastClicker\PyGame_Clicker.pyproj", "{B79445C9-F043-4666-824E-63F879E4DADF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
