@@ -28,6 +28,11 @@ class Label(Area):
   def draw(self, shift_x=0, shift_y=0):
       self.fill()
       main_window.blit(self.image, (self.rect.x + shift_x, self.rect.y + shift_y))
+  def draw_cards(self, shift_x=0, shift_y=0):
+      self.fill()
+      self.outline(BLUE, 10)
+      main_window.blit(self.image, (self.rect.x + shift_x, self.rect.y + shift_y))
+
 
 RED = (255, 0, 0)
 GREEN = (0, 255, 51)
@@ -80,12 +85,13 @@ while play:
       wait = 20 #столько тиков надпись будет на одном месте
       click = randint(1, num_cards)
       for i in range(num_cards):
-          cards[i].color((255,255,0))
           cards[i].color(YELLOW)
           if (i + 1) == click:
-              cards[i].draw(10, 40)
+
+              cards[i].draw_cards(10, 40)
           else:
               cards[i].fill()
+              cards[i].outline(BLUE, 10)
   else:
       wait -= 1
   '''Обработка кликов по карточкам'''
