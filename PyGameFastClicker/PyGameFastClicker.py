@@ -3,8 +3,8 @@ import time
 
 pygame.init()
 back = (255, 255, 255) 
-mw = pygame.display.set_mode((500, 500)) 
-mw.fill(back)
+main_window = pygame.display.set_mode((500, 500)) 
+main_window.fill(back)
 clock = pygame.time.Clock()  
 
 '''класс прямоугольник'''
@@ -15,9 +15,9 @@ class Area():
   def color(self, new_color):
       self.fill_color = new_color
   def fill(self):
-      pygame.draw.rect(mw, self.fill_color, self.rect)
+      pygame.draw.rect(main_window, self.fill_color, self.rect)
   def outline(self, frame_color, thickness): #обводка существующего прямоугольника
-      pygame.draw.rect(mw, frame_color, self.rect, thickness)   
+      pygame.draw.rect(main_window, frame_color, self.rect, thickness)   
   def collidepoint(self, x, y):
       return self.rect.collidepoint(x, y)      
 
@@ -27,7 +27,7 @@ class Label(Area):
       self.image = pygame.font.SysFont('verdana', fsize).render(text, True, text_color)
   def draw(self, shift_x=0, shift_y=0):
       self.fill()
-      mw.blit(self.image, (self.rect.x + shift_x, self.rect.y + shift_y))
+      main_window.blit(self.image, (self.rect.x + shift_x, self.rect.y + shift_y))
 
 RED = (255, 0, 0)
 GREEN = (0, 255, 51)
@@ -71,8 +71,10 @@ wait = 0
 points = 0
 
 from random import randint
-while True:
-  '''Отрисовка карточек и отображение кликов'''
+
+play = True
+while play:
+    '''Отрисовка карточек и отображение кликов'''
   if wait == 0:
       wait = 20 #столько тиков надпись будет на одном месте
       click = randint(1, num_cards)
@@ -101,14 +103,15 @@ while True:
                   cards[i].fill()
                   score.set_text(str(points),20, DARK_BLUE)
                   score.draw(0,0)
+
   '''Выигрыш и проигрыш'''
   new_time = time.time()
  
-  if new_time - start_time  >= 11:
+  if new_time - start_time  >= 60:
        win = Label(0, 0, 500, 500, LIGHT_RED)
        win.set_text("Время вышло!!!", 30, DARK_BLUE)
        win.draw(110, 180)
-       break
+       play = False
   
   if int(new_time) - int(cur_time) == 1: #проверяем, есть ли разница в 1 секунду между старым и новым временем
        timer.set_text(str(int(new_time - start_time)), 20, DARK_BLUE)
@@ -117,16 +120,14 @@ while True:
  
   if points >= 5:
        win = Label(0, 0, 500, 500, LIGHT_GREEN)
-       win.set_text("Ты победил!!!", 60, DARK_BLUE)
+       win.set_text("Ты победил!!!", 30, DARK_BLUE)
        win.draw(140, 180)
-       resul_time = Label(90, 230, 250, 250, LIGHT_GREEN)
-       resul_time.set_text("Время прохождения: " + str (int(new_time - start_time)) + " сек", 20, DARK_BLUE)
- 
-       resul_time.draw(0, 0)
- 
-       break
- 
+       result_time = Label(90, 230, 250, 250, LIGHT_GREEN)
+       result_time.set_text("Время проходения: " + str(int(new_time-start_time)), 25, DARK_BLUE)
+       result_time.draw(0, 0)
+       play = False       
+       
   pygame.display.update()
   clock.tick(20)
  
-#pygame.display.update() 
+
